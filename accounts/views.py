@@ -44,9 +44,7 @@ def loginUser(request):
             messages.error(request,'Wrong username or password')
             return redirect('login')
         
-        print(username)
         user = authenticate(request,username=username,password=password)
-        print(user)
         if not user:
             messages.error(request,'Wrong username or password')
             return redirect('login')

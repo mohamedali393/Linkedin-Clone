@@ -154,7 +154,6 @@ def post_new_job(request):
         deadline = request.POST.get('deadline')
         job_type = request.POST.get('job_type')
         company = get_object_or_404(Company,pk=company_id)
-        print('Salary: ',salary)
         job = Job.objects.create(
             company=company,
             title=title,
