@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="search-page">
+
+    <h2 class="search-title">
+        Search Results
+    </h2>
+
+    {% if query %}
+        <p class="search-query">
+            Results for "<strong>{{ query }}</strong>"
+        </p>
+    {% endif %}
+
+    <!-- People -->
+
+    <section class="search-section">
+
+        <h3>People</h3>
+
+        {% if users %}
+
+            {% for user in users %}
+
+                <div class="search-card">
+
+                    <div class="search-info">
+
+                        {% if user.profile.photo %}
+                            <img src="{{ user.profile.photo.url }}" alt="{{ user.full_name }}">
+                        {% else %}
+                            <img src="{% static 'images/user-defaul.png' %}" alt="Profile">
+                        {% endif %}
+
+                        <div>
+
+                            <h4>
+                                <a href="{% url 'profile' user.id %}">
+                                    {{ user.full_name }}
+                                </a>
+                            </h4>
+
+                            {% if user.profile.headline %}
+                                <p>{{ user.profile.headline }}</p>
+                            {% endif %}
+
+                            {% if user.profile.location %}
+                                <small>{{ user.profile.location }}</small>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-text">No people found.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Jobs -->
+
+    <section class="search-section">
+
+        <h3>Jobs</h3>
+
+        {% if jobs %}
+
+            {% for job in jobs %}
+
+                <div class="search-card">
+
+                    <h4>
+                        <a href="{% url 'job' job.id %}">
+                            {{ job.title }}
+                        </a>
+                    </h4>
+
+                    <p>{{ job.company.name }}</p>
+
+                    <small>{{ job.location }}</small>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-text">No jobs found.</p>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Companies -->
+
+    <section class="search-section">
+
+        <h3>Companies</h3>
+
+        {% if companies %}
+
+            {% for company in companies %}
+
+                <div class="search-card">
+
+                    <h4>
+                        <a href="{% url 'company-details' company.id %}">
+                            {{ company.name }}
+                        </a>
+                    </h4>
+
+                    <p>{{ company.description|truncatewords:20 }}</p>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-text">No companies found.</p>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+{% endblock %}

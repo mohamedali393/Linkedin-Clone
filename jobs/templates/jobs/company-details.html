@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="company-details">
+
+    <div class="company-header">
+
+        <div class="company-logo">
+            <img src="{{ company.logo.url }}" alt="{{ company.name }}">
+        </div>
+
+        <div class="company-info">
+            <h1>{{ company.name }}</h1>
+
+            <p>
+                <i class="fas fa-map-marker-alt"></i>
+                {{ company.location }}
+            </p>
+
+            {% if company.website %}
+            <p>
+                <i class="fas fa-globe"></i>
+                <a href="{{ company.website }}" target="_blank">
+                    {{ company.website }}
+                </a>
+            </p>
+            {% endif %}
+
+            <small>
+                Created {{ company.created_at|date:"F d, Y" }}
+            </small>
+
+        </div>
+
+        {% if request.user == company.owner %}
+        <div class="company-actions">
+
+            <a href="{% url 'update-company' company.id %}" class="btn-edit">
+                <i class="fas fa-edit"></i>
+                Edit
+            </a>
+
+            <a href="{% url 'delete-company' company.id %}" class="btn-delete">
+                <i class="fas fa-trash"></i>
+                Delete
+            </a>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="company-section">
+
+        <h2>About</h2>
+
+        {% if company.description %}
+            <p>{{ company.description }}</p>
+        {% else %}
+            <p>No description available.</p>
+        {% endif %}
+
+    </div>
+
+    <div class="company-section">
+
+        <div class="section-header">
+            <h2>Open Jobs</h2>
+
+            {% if request.user == company.owner %}
+            <a href="{% url 'create-job' company.id %}" class="btn-primary">
+                <i class="fas fa-plus"></i>
+                Post Job
+            </a>
+            {% endif %}
+        </div>
+
+        {% if company.jobs.all %}
+
+            {% for job in company.jobs.all %}
+
+            <div class="job-card">
+
+                <div class="job-info">
+
+                    <h3>{{ job.title }}</h3>
+
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{ job.location }}
+                    </p>
+
+                    <p>
+                        <i class="fas fa-briefcase"></i>
+                        {{ job.job_type }}
+                    </p>
+
+                    <p>
+                        <i class="fas fa-money-bill-wave"></i>
+                        ${{ job.salary }}
+                    </p>
+
+                    <a href="{% url 'job' job.id %}" class="btn-view">
+                        View Job
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No jobs available.</p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

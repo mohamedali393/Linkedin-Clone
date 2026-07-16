@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form-card">
+    <h3>{{title}}</h3>
+    {% include 'messages.html' %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <div class="form-group">
+            <button type="submit" class="btn-block">
+                <i class="fas fa-check-circle"></i>
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

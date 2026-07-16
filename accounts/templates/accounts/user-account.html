@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="profile-content">
+        <div class="profile-content-inner">
+            <img src="{{profile.cover_image.url}}" alt="">
+            <div class="profile-user-image">
+                <img src="{{profile.photo.url}}" alt="">
+            </div>
+            <div class="profile-user-info">
+                <h3>{{profile.user.full_name}}</h3>
+                <h4>{{profile.headline}}</h4>
+                <a href="#">{{profile.location}} <span>Contact Info</span></a> 
+                <div class="profile-mutual">
+                    <img src="{{profile.photo.url}}" alt="">
+                    <p>One Mutual Connection Mohamed Ali</p>
+                </div>
+                <div class="profile-links">
+                {% if request.user == profile.user %}
+                    <a href="{% url 'update-profile' %}">
+                        <span>
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        Edit Profile
+                    </a>
+                    {% else %}
+                    <!-- {% if not profile.is_connected and not profile.has_connection_request %}
+                    <a href="{% url 'create-connection' profile.user.id %}">
+                        <span>
+                            <i class="fas fa-user-plus"></i>
+                        </span>
+                        Connect
+                    </a>
+                    {% endif %}
+                    {% if profile.is_connected %}
+                    <form method="POST" action="{% url 'create-conversation' profile.user.id %}">
+                        {% csrf_token %}
+                        <button type="submit">
+                            <span>
+                                <i class="fas fa-comments"></i>
+                            </span>
+                            Message
+                        </button>
+                    </form>
+                    {% endif %} -->
+                    {% if profile.user != request.user %}
+
+                        {% if profile.user in request.user.connections.all %}
+
+                            <!-- Already connected -->
+                            <form method="POST" action="{% url 'create-conversation' profile.user.id %}">
+                                {% csrf_token %}
+                                <button type="submit">
+                                    <i class="fas fa-envelope"></i>
+                                    Message
+                                </button>
+                            </form>
+
+                            <form method="POST" action="{% url 'remove-connection' profile.user.id %}">
+                                {% csrf_token %}
+                                <button type="submit">
+                                    Remove Connection
+                                </button>
+                            </form>
+
+
+                        {% elif profile.has_connection_request %}
+
+                            <!-- Request exists -->
+                            <button disabled>
+                                Pending
+                            </button>
+
+
+                        {% else %}
+
+                            <!-- Not connected -->
+                            <a href="{% url 'create-connection' profile.user.id %}?next={{ request.path }}">
+                                <i class="fas fa-comments"></i>
+                                Connect
+                            </a>
+
+
+                        {% endif %}
+
+                    {% endif %}
+                {% endif %}
+                </div>               
+            </div>
+        </div>
+        {% include 'messages.html' %}
+        <div class="profile-description">
+            <h3>About</h3>
+            <p>{{profile.about}}</p>
+            <a href="#" class="see-more-link">See More...</a>
+        </div>
+        <div class="profile-description">
+            <div class="flex-row">
+                <h3>Experience</h3>
+                {% if profile.user == request.user %}
+                <a href="{% url 'create-experience' %}">
+                    <i class="fas fa-plus"></i>
+                    Create Experience
+                </a>
+                {% endif %}
+            </div>
+            {% for experience in experiences %}
+            <div class="experience-item">
+                <span>
+                    <i class="fas fa-briefcase"></i>
+                </span>
+                <div>
+                    <h4>{{experience.company_name}}</h4>
+                    <b>{{experience.position}}</b>
+                    <b>{{experience.start_date}} - Present - {{experience.period}}</b>
+                    <p>{{experience.description}}</p>
+                    <hr>
+                </div>
+            </div>
+            {% empty %}
+            <p>No Experience</p>
+            {% endfor %}
+            <hr>
+            <a class="experient-link" href="#">Show all 7 Experiences <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="profile-description">
+            <div class="flex-row">
+                <h3>Education</h3>
+                {% if profile.user == request.user %}
+                <a href="{% url 'create-education' %}">
+                    <i class="fas fa-plus"></i>
+                    Create Skill
+                </a>
+                {% endif %}
+            </div>
+            {% for education in educations %}
+            <div class="experience-item">
+                <span>
+                    <i class="fas fa-university"></i>
+                </span>
+                <div>
+                    <h4>{{education.school_name}}</h4>
+                    <b>{{education.field_study}}</b>
+                    <b>{{education.start_date}} - Present - {{education.period}}</b>
+                    <p>{{education.description | slice:'200'}}</p>
+                    <hr>
+                </div>
+            </div>
+            {% empty %}
+            <p>No Education</p>
+            {% endfor %}
+        </div>
+        <div class="profile-description">
+            <div class="flex-row">
+                <h3>Skills</h3>
+                {% if profile.user == request.user %}
+                <a href="{% url 'create-skill' %}">
+                    <i class="fas fa-plus"></i>
+                    Create Skill
+                </a>
+                {% endif %}
+            </div>
+            {% for skill in skills %}
+            <a href="#" class="skill-link">{{skill.name | title}}</a>
+            {% empty %}
+            <p>No Skill</p>
+            {% endfor %}
+        </div>
+        <div class="profile-description">
+            <div class="flex-row">
+                <h3>Languages</h3>
+                {% if profile.user == request.user %}
+                <a href="{% url 'create-language' %}" >
+                    <i class="fas fa-plus"></i>
+                    Create Language
+                </a>
+                {% endif %}
+            </div>
+            {% for language in languages %}
+            <div class="language-btn">{{language.name}}</div>
+            {% empty %}
+            <p>No Language</p>
+            {% endfor %}
+        </div>
+        <div class="profile-footer">
+            <div class="sidebar-copyright">
+                <div class="copyright-links">
+                    <a href="#">About</a>
+                    <a href="#">Accessability</a>
+                    <a href="#">Privacy Polacy</a>
+                    <a href="#">Get the app</a>
+                    <a href="#">More</a>
+                </div>
+                <p>
+                    <span>
+                        <i class="fab fa-linkedin"></i>
+                    </span> 
+                    Linkedup &#196; 2022, All Rights Reserved
+                </p>
+            </div>
+        </div>
+    </div>
+    {% include 'accounts/profile-sidebar.html' %}
+</div>
+{% endblock %}

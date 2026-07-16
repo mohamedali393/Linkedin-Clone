@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="jobs-container">
+
+    <div class="jobs-header">
+        <h2>My Applications</h2>
+    </div>
+
+    {% if applications %}
+
+        {% for application in applications %}
+        <div class="job-card">
+
+            <div class="job-logo">
+                {% if application.job.company.logo %}
+                    <img src="{{ application.job.company.logo.url }}"
+                         alt="{{ application.job.company.name }}"
+                         style="width:80px;height:80px;border-radius:10px;object-fit:cover;">
+                {% else %}
+                    <span class="material-symbols-outlined">
+                        business
+                    </span>
+                {% endif %}
+            </div>
+
+            <div class="job-info">
+
+                <h3>{{ application.job.title }}</h3>
+
+                <h4>{{ application.job.company.name }}</h4>
+
+                <div class="job-meta">
+
+                    <span>
+                        <i class="fa-solid fa-location-dot"></i>
+                        {{ application.job.location }}
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-briefcase"></i>
+                        {{ application.job.job_type }}
+                    </span>
+
+                    <span>
+                        <i class="fa-solid fa-calendar"></i>
+                        Applied {{ application.created|date:"M d, Y" }}
+                    </span>
+
+                </div>
+
+                <p>
+                    {{ application.job.description|truncatewords:30 }}
+                </p>
+
+                <div class="job-footer">
+
+                    <small>
+                        Status:
+                        <strong>
+                            {{ application.get_status_display }}
+                        </strong>
+                    </small>
+
+                    <a href="{% url 'job' application.job.id %}" class="apply-btn">
+                        View Job
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-companies">
+
+            <span class="material-symbols-outlined"
+                  style="font-size:70px;color:#0a66c2;">
+                work
+            </span>
+
+            <h3>No Applications Yet</h3>
+
+            <p>
+                You haven't applied for any jobs yet.
+            </p>
+
+            <a href="{% url 'jobs' %}" class="btn-primary">
+                Browse Jobs
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

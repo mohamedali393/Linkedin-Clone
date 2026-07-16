@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="conversation-container">
+
+    <div class="conversation-header">
+        <h2>Conversation</h2>
+
+        <div class="participants">
+            {% for user in conversation.participants.all %}
+                {% if user != request.user %}
+                    <span>{{ user.full_name }}</span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="messages-container">
+
+        {% for message in contact_messages %}
+
+            {% if message.sender == request.user %}
+
+                <div class="message sent">
+
+                    <div class="message-content">
+                        {{ message.content }}
+                    </div>
+
+                    <small>
+                        {{ message.created_at|date:"M d, Y H:i" }}
+                    </small>
+
+                </div>
+
+
+            {% else %}
+
+                <div class="message received">
+
+                    <div class="sender-name">
+                        {{ message.sender.full_name }}
+                    </div>
+
+                    <div class="message-content">
+                        {{ message.content }}
+                    </div>
+
+                    <small>
+                        {{ message.created_at|date:"M d, Y H:i" }}
+                    </small>
+
+                </div>
+
+            {% endif %}
+
+        {% empty %}
+
+            <p class="empty-message">
+                No messages yet. Start the conversation.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="message-form">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{form.as_p}}
+
+
+            <button type="submit">
+                Send
+            </button>
+
+        </form>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

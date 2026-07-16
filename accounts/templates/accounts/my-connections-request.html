@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="connection-requests-container">
+
+    <h2 class="page-title">Connection Requests</h2>
+
+    {% if requests %}
+
+    <div class="requests-list">
+
+        {% for request in requests %}
+
+        <div class="request-card">
+
+            <div class="user-info">
+
+                {% if request.sender.profile_image %}
+                    <img 
+                        src="{{ request.sender.profile_image.url }}"
+                        class="user-image"
+                        alt="{{ request.sender.full_name }}"
+                    >
+                {% else %}
+                    <div class="user-placeholder">
+                        {{ request.sender.full_name|first }}
+                    </div>
+                {% endif %}
+
+                <div>
+                    <h3>{{ request.sender.full_name }}</h3>
+                    <p>Sent you a connection request</p>
+                </div>
+
+            </div>
+
+
+            <div class="request-actions">
+
+                <form method="POST" action="{% url 'accept-connection' request.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{request.path}}" />
+                    <button style="border: 0;" type="submit"
+                       class="accept-btn">
+                        Accept
+                    </button>
+                </form>
+
+                <form method="POST" action="{% url 'reject-connection' request.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{request.path}}" />
+                    <button type="submit"
+                       class="reject-btn">
+                        Reject
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+        <div class="empty-requests">
+            <h3>No connection requests</h3>
+            <p>You don't have any pending connection requests.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

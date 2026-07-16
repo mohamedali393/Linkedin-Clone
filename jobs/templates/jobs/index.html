@@ -1,0 +1,330 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="sidebar-left">
+        <div class="sidebar-left-info">
+            <img src="{{user.profile.cover_image.url}}" alt="">
+            <div class="profile-image">
+                <img src="{{user.profile.photo.url}}" alt="">
+            </div>
+            <div class="profile-info">
+                <h1>{{user.full_name}}</h1>
+                <h3>Web Developer on microsoft</h3>
+                <ul>
+                    <li>Your profile Views<span>{{user.profile.views}}</span></li>
+                    <li>Your post Views<span>{{posts_views}}</span></li>
+                    <li>Your connections<span>{{request.user.connections.count}}</span></li>
+                </ul>
+            </div>
+            <div class="profile-info-links">
+                <a href="#">
+                    <span>
+                        <i class="fas fa-bookmark"></i>
+                    </span>
+                    My Items
+                </a>
+                <a href="#">
+                    <span>
+                        <i class="fas fa-star"></i>
+                    </span>
+                    Try Premium
+                </a>
+            </div>
+        </div>
+        <div class="recent-activities">
+            <h3>RECENT</h3>
+            <a href="#">
+                <span>
+                    <i class="fas fa-clock-rotate-left"></i>
+                </span>
+                Web developement
+            </a>
+            <a href="#">
+                <span>
+                    <i class="fas fa-clock-rotate-left"></i>
+                </span>
+                User Interface
+            </a>
+            <a href="#">
+                <span>
+                    <i class="fas fa-clock-rotate-left"></i>
+                </span>
+                Online Learning
+            </a>
+            <a href="#">
+                <span>
+                    <i class="fas fa-clock-rotate-left"></i>
+                </span>
+                Learn Online
+            </a>
+            <a href="#">
+                <span>
+                    <i class="fas fa-clock-rotate-left"></i>
+                </span>
+                Code Practice
+            </a>
+            <h3>Groups</h3>
+            <a href="#">
+                <span>
+                    <i class="fas fa-users"></i>
+                </span>
+                Python & JavaScript
+            </a>
+            <a href="#">
+                <span>
+                    <i class="fas fa-users"></i>
+                </span>
+                Web Development
+            </a>
+            <a href="#">
+                <span>
+                    <i class="fas fa-users"></i>
+                </span>
+                HTML & CSS
+            </a>
+            <h3>HASH TAGS</h3>
+            <a href="#">
+                <span>
+                    #
+                </span>
+                pythonandjavascript
+            </a>
+            <a href="#">
+                <span>
+                    #
+                </span>
+                django
+            </a>
+            <a href="#">
+                <span>
+                    #
+                </span>
+                react
+            </a>
+            <div class="descover-more-link">
+                <a href="#">Descover More</a>
+            </div>
+        </div>
+        <p id="sidebarToggleBtn">Show More +</p>
+    </div>
+    <div class="middle-content">
+        {% include 'messages.html' %}
+        <form method="POST" action="{% url 'create-post' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="create-post">
+            <div class="create-post-container">
+                <img src="{{user.profile.photo.url}}" alt="">
+                <div style="width: 100%;">
+                    {{form.as_p}}
+                </div>     
+                <!-- <textarea rows="1" placeholder="Create New Post..."></textarea> -->
+            </div>
+                <div class="create-post-links">
+                    <a href="#">
+                        <span>
+                            <i class="fas fa-camera"></i>
+                        </span>
+                        Photo
+                    </a>
+                    <a href="#">
+                        <span>
+                            <i class="fas fa-video"></i>
+                        </span>
+                        Video
+                    </a>
+                    <a href="#">
+                        <span>
+                            <i class="fas fa-book"></i>
+                        </span>
+                        Events
+                    </a>
+                    <button type="submit">
+                        Post
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="sort-by">
+            <hr>
+            <p>Sort By: <span>Top <i class="fa-solid fa-caret-down"></i></span></p>
+        </div>
+        {% for post in posts %}
+        <div class="post">
+            <div class="post-author">
+                <img src="{{post.user.profile.photo.url}}" alt="">
+                <div>
+                    <h1>{{post.user.full_name}} {% if post.shared_by %} and {{post.shared_by.full_name}}{% endif %}</h1>
+                    <h3>{{post.user.profile.headline}} {{post.created_at}} ago.</h3>
+                    <span>{{post.created_at}} ago</span>
+                </div>
+            </div>
+            <p>{{post.content}}</p>
+            {% if post.shared_body %}
+            <p>{{post.shared_body}}</p>
+            {% endif %}
+            <!-- Original post -->
+            {% if post.shared_post %}
+
+                <div class="shared-post">
+
+                    <div class="shared-post-header">
+
+                        <strong>
+                            {{ post.shared_post.user.full_name }}
+                        </strong>
+
+                        <small>
+                            {{ post.shared_post.created_at|timesince }} ago
+                        </small>
+
+                    </div>
+
+
+                    {% if post.shared_post.image %}
+
+                        <img 
+                            src="{{ post.shared_post.image.url }}"
+                            alt="post image"
+                        >
+
+                    {% endif %}
+
+
+                    <p>
+                        {{ post.shared_post.content }}
+                    </p>
+
+
+                </div>
+
+
+            {% endif %}
+            {% if post.image %}
+            <img src="{{post.image.url}}" alt="">
+            {% endif %}
+            <div class="post-activities">
+                <div class="post-activity-top">
+                    <div>
+                        <span>
+                            <i class="fas fa-thumbs-up"></i>
+                        </span>
+                        <span>
+                            <i class="far fa-heart"></i>
+                        </span>
+                        <span>
+                            <i class="fas fa-comment"></i>
+                        </span>
+                        <p>{{post.user.full_name}} and 75 others</p>
+                    </div>
+                    <p>{{post.comments.count}} comments 40 shares</p>
+                </div>
+                <div class="post-activity-bottom">
+                    <div class="post-activity-author">
+                        <img src="{{post.user.profile.photo.url}}" alt="">
+                        <span>
+                            <i class="fa-solid fa-caret-down"></i>
+                        </span>
+                    </div>
+                    <form method="POST" action="{% url 'like-post' post.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{request.path}}" />
+                        <button type="submit" style="color: #555; border: 0; background-color: transparent; cursor: pointer;">
+                            <span>{{post.likes.count}}</span>
+                            <span>
+                                <i class="far fa-thumbs-up"></i>
+                            </span>
+                            <span>
+                                Like
+                            </span>
+                        </button>
+                    </form>
+                    <a href="{{post.get_url}}">
+                        <span>
+                            <i class="far fa-comment"></i>
+                        </span>
+                        <span>
+                            Comment
+                        </span>
+                    </a>
+                    <button style="color: #555; border: 0; background-color: transparent; cursor: pointer;" onclick="toggleId('share_post_{{post.id}}')">
+                        <span>
+                            <i class="fas fa-share"></i>
+                        </span>
+                        <span>
+                            Share
+                        </span>
+                    </button>
+
+                </div>
+                <div class="hidden" id="share_post_{{post.id}}">
+                    <form action="{% url 'share-post' post.id %}" method="POST">
+                        {% csrf_token %}
+                        {{share_form.as_p}}
+                        <button class="share-btn" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="sidebar-right">
+        <div class="sidebar-news">
+            <div class="news-title">
+                <h3>Trending News</h3>
+                <span class="trending-icon">
+                    <i class="fas fa-clock"></i>
+                </span>
+            </div>
+            <a href="#">High Demand for skilled manpower</a>
+            <span>1d ago 10,934 readers</span>
+            <a href="#">Kareer growing horizotally too</a>
+            <span>1d ago 19,934 readers</span>
+            <a href="#">Less More visit for US, more for UK</a>
+            <span>2d ago 11,934 readers</span>
+            <a href="#">More Hiring = higher confidence</a>
+            <span>2d ago 14,934 readers</span>
+            <a href="#">Guatam Adnal is the worlds third rechest</a>
+            <span>3d ago 10,954 readers</span>
+            <a href="#" class="read-more-link">Read More</a>
+        </div>
+        <div class="sidebar-ad">
+            <small>Add &middot; &middot; &middot;</small>
+            <br>
+            <br>
+            <p>Master the 5 principals of web design</p>
+            <div>
+                <img src="{{user.profile.photo.url}}" alt="">
+                <span>
+                    <i class="fas fa-award"></i>
+                </span>
+            </div>
+            <p><strong>Brand and demand in Xiaami</strong></p>
+            <a class="learn-more"> Learn More</a>
+        </div>
+        <div class="sidebar-copyright">
+            <div class="copyright-links">
+                <a href="#">About</a>
+                <a href="#">Accessability</a>
+                <a href="#">Privacy Polacy</a>
+                <a href="#">Get the app</a>
+                <a href="#">More</a>
+            </div>
+            <p>
+                <span>
+                    <i class="fab fa-linkedin"></i>
+                </span> 
+                Linkedup &#196; 2022, All Rights Reserved
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleId(id){
+        document.getElementById(`${id}`).classList.toggle('hidden');
+    }
+</script>
+
+{% endblock %}

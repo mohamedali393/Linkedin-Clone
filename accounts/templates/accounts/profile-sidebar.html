@@ -1,0 +1,37 @@
+<div class="profile-sidebar">
+    <div class="sidebar-ad">
+        <small>Add &middot; &middot; &middot;</small>
+        <br>
+        <br>
+        <p>Master the 5 principals of web design</p>
+        <div>
+            <img src="{{user.profile.photo.url}}" alt="">
+            <span>
+                <i class="fas fa-award"></i>
+            </span>
+        </div>
+        <p><strong>{{user.profile.headline}}</strong></p>
+        <a class="learn-more"> Learn More</a>
+    </div>
+    <div class="people">
+        <h2>People you may know</h2>
+        {% for profile in profiles %}
+        {% if profile.id != request.user.profile.id %}
+        <div style="align-items: center;" class="person-row">
+            <img src="{{profile.photo.url}}" alt="">
+            <div style="margin-top: 0;">
+                <h3>
+                    <a style="border: none;" href="{% url 'profile' profile.id %}">
+                        {{profile.user.full_name}}
+                    </a>
+                </h3>
+                <p>{{profile.headline}}</p>
+                {% if not profile.is_connected and not profile.has_connection_request %}
+                <a href="{% url 'create-connection' profile.user.id %}?next={{request.path}}">Connect</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>

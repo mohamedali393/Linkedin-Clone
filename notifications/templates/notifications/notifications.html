@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="notifications-container">
+
+    <div class="notifications-header">
+        <h2>Notifications</h2>
+    </div>
+
+
+    <div class="notifications-list">
+
+        {% for notification in notifications %}
+
+            <div class="notification-card 
+                {% if not notification.is_read %}
+                    unread
+                {% endif %}
+            ">
+
+                <div class="notification-avatar">
+
+                    {% if notification.sender.profile.image %}
+
+                        <img 
+                            src="{{ notification.sender.profile.image.url }}"
+                            alt="{{ notification.sender.full_name }}"
+                        >
+
+                    {% else %}
+
+                        <div class="default-avatar">
+                            {{ notification.sender.first_name|first }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="notification-content">
+
+                    <p>
+                        <a href="{% url 'redirect-notification' notification.id %}">
+                            <strong>
+                                {{ notification.sender.full_name }}
+                            </strong>
+
+
+                            {% if notification.notification_type == 'connection_request' %}
+
+                                sent you a connection request
+
+
+                            {% elif notification.notification_type == 'connection_accept' %}
+
+                                accepted your connection request
+
+
+                            {% elif notification.notification_type == 'like' %}
+
+                                liked your post
+
+
+                            {% elif notification.notification_type == 'comment' %}
+
+                                commented on your post
+
+
+                            {% elif notification.notification_type == 'message' %}
+
+                                sent you a message
+
+
+                            {% elif notification.notification_type == 'job_application' %}
+
+                                Your Job Application , {{notification.message}}
+
+
+                            {% endif %}
+                        </a>
+                    </p>
+
+
+                    <small>
+                        {{ notification.created_at|timesince }} ago
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+        {% empty %}
+
+            <div class="empty-notifications">
+
+                <p>
+                    You don't have any notifications yet.
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

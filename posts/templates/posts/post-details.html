@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="post-details">
+
+    <div class="post-card">
+        {% include 'messages.html' %}
+        <div class="post-header">
+
+            <img src="{{ post.user.profile.photo.url }}" alt="">
+
+            <div class="post-user-info">
+                <h3>{{ post.user.full_name }}</h3>
+                <p>{{ post.user.profile.headline }}</p>
+                <small>{{ post.created_at|timesince }} ago</small>
+            </div>
+
+            {% if request.user == post.user %}
+            <div class="post-actions">
+                <a href="{% url 'update-post' post.id %}">
+                    <i class="fas fa-edit"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <div class="post-content">
+
+            <p>{{ post.content|linebreaks }}</p>
+
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="">
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <div class="comments-section">
+
+        <div class="comments-header">
+            <h2>Comments ({{ comments.count }})</h2>
+        </div>
+
+        <div class="create-comment">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="comment-form">
+
+                    <img src="{{ request.user.profile.photo.url }}" alt="">
+
+                    {{form.content}}
+
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Comment
+                </button>
+
+            </form>
+
+        </div>
+
+
+        {% for comment in comments %}
+
+        <div class="comment">
+
+            <img src="{{ comment.user.profile.photo.url }}" alt="">
+
+            <div class="comment-body">
+
+                <div class="comment-info">
+
+                    <h4>{{ comment.user.full_name }}</h4>
+
+                    <small>{{ comment.created_at|timesince }} ago</small>
+
+                    {% if request.user == comment.user %}
+                    <div class="comment-actions">
+
+                        <a href="{% url 'update-comment' comment.id %}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+
+                        <a href="{% url 'delete-comment' comment.id %}">
+                            <i class="fas fa-trash"></i>
+                        </a>
+
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <p>{{ comment.content|linebreaks }}</p>
+
+                <div>
+                    <button style="border: 0; background-color: transparent; font-size: 18px; color: #333; margin-bottom: 15px; cursor: pointer;" onclick="toggleId('replay-{{comment.id}}')">
+                        <i class="fas fa-comments"></i>
+                    </button>
+                </div>
+                <div>
+                    <div id="replay-{{comment.id}}" class="create-comment hidden">
+
+                        <form action="{% url 'replay-comment' comment.id %}" method="POST">
+
+                            {% csrf_token %}
+
+                            <div class="comment-form">
+
+                                <img src="{{ request.user.profile.photo.url }}" alt="">
+
+                                {{form.content}}
+
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                Comment
+                            </button>
+
+                        </form>
+
+                    </div>
+                    <!-- Replies -->
+                    {% for reply in comment.children %}
+
+                        <div class="reply">
+
+                            <strong>
+                                {{ reply.user.full_name }}
+                            </strong>
+
+                            <p>
+                                {{ reply.content }}
+                            </p>
+
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="empty-comments">
+            <i class="far fa-comment-dots"></i>
+            <h3>No Comments Yet</h3>
+            <p>Be the first person to comment on this post.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+<script>
+    function toggleId(id){
+        document.getElementById(`${id}`).classList.toggle('hidden');
+    }
+</script>
+
+{% endblock %}

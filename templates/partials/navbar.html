@@ -1,0 +1,137 @@
+<nav class="nav">
+    <div class="nav-left">
+        <a href="{% url 'index' %}" class="logo">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <form action="{% url 'search' %}" class="search-box">
+            <button style="background-color: transparent;border: 0; cursor: pointer;">
+                <span>
+                    <i class="fas fa-search"></i>
+                </span>
+            </button>
+            <input name="q" type="text" placeholder="Search...">
+        </form>
+    </div>
+    <div class="nav-middle">
+        <ul>
+            <li>
+                <a class="{% if '/' == request.path %}active{% endif %}" href="{% url 'index' %}">
+                    <i class="fas fa-home"></i>
+                    <span>
+                        Home
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="{% if 'connections-requests' in request.path %}active{% endif %}" href="{% url 'my-connections-requests' %}">
+                    <i class="fas fa-user"></i>
+                    <span>
+                        My Network
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="{% if 'my-applications' in request.path %}active{% endif %}" href="{% url 'my-applications' %}">
+                    <i class="fa-solid fa-file-circle-check"></i>
+                    <span>
+                        My Applications
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="{% if '/jobs/' == request.path %}active{% endif %}" href="{% url 'jobs' %}">
+                    <i class="fas fa-briefcase"></i>
+                    <span>
+                        Jobs
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="{% if 'my-companies' in request.path %}active{% endif %}" href="{% url 'my-companies' %}">
+                    <i class="fa-solid fa-building"></i>
+                    <span>
+                        My Companies
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="{% if 'messaging' in request.path %}active{% endif %}" href="{% url 'messagings' %}">
+                    <i class="fas fa-comments"></i>
+                    <span>
+                        Messaging
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="{% if '/notifications/' == request.path %}active{% endif %}" href="{% url 'my-notifications' %}">
+                    <i class="fas fa-bell"></i>
+                    <span>
+                        Notifications
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="nav-right">
+        {% if user.is_authenticated %}
+        <div id="user-profile" class="user-profile">
+            <img src="{{user.profile.photo.url}}" alt="">
+            <div class="toggle-menu">
+                <div class="toggle-menu-profile">
+                    <img src="{{user.profile.photo.url}}" alt="">
+                    <div>
+                        <h3>{{user.full_name}}</h3>
+                        <a href="{% url 'account' %}">See your profile</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="question-link">
+                    <a href="#">
+                        <span>
+                            <i class="fas fa-circle-question"></i>
+                        </span>
+                    </a>
+                    <p>Giv Feadback</p>
+                    <span>></span>
+                </div>
+                <div class="question-link">
+                    <a href="#">
+                        <span>
+                            <i class="fas fa-cog"></i>
+                        </span>
+                    </a>
+                    <p>Settings & Privacy</p>
+                    <span>></span>
+                </div>
+                <div class="question-link">
+                    <a href="#">
+                        <span>
+                            <i class="fas fa-circle-question"></i>
+                        </span>
+                    </a>
+                    <p>Help & Support</p>
+                    <span>></span>
+                </div>
+                <div class="question-link">
+                    <a href="#">
+                        <span>
+                            <i class="fas fa-moon"></i>
+                        </span>
+                    </a>
+                    <p>Display And Accessability</p>
+                    <span>></span>
+                </div>
+                <div class="question-link">
+                    <a href="{% url 'logout' %}">
+                        <span>
+                            <i class="fas fa-sign-out-alt"></i>
+                        </span>
+                    </a>
+                    <p>Logout</p>
+                    <span>></span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</nav>

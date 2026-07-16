@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form-card">
+    <h3>Post New Job</h3>
+    {% include 'messages.html' %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="companey_id">Select a Company</label>
+            <select required class="input" name="company_id" id="company_id">
+                {% for company in companies %}
+                <option value="{{company.id}}">{{company.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input required class="input" id="title" name="title" type="text">
+        </div>
+        <div class="form-group">
+            <label for="salary">Salary</label>
+            <input required type="number" class="input" id="salary" name="salary" />
+        </div>
+        <div class="form-group">
+            <label for="experience_years">Experience Years</label>
+            <input required type="number" class="input" id="experience_years" name="experience_years" />
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input required type="text" class="input" id="location" name="location" />
+        </div>
+        <div class="form-group">
+            <label for="deadline">Deadline</label>
+            <input required type="date" class="input" id="deadline" name="deadline" />
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="input" name="description" id="description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="job_type">Job Type</label>
+            <select required class="input" id="job_type" name="job_type" >
+                <option value="full_time">Full Time</option>
+                <option value="part_time">Part Time</option>
+                <option value="contract">Contract</option>
+                <option value="internship">Internship</option>
+                <option value="freelance">Freelance</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn-block">
+                <i class="fas fa-check-circle"></i>
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

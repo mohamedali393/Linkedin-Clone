@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="job-details">
+
+    <div class="job-header">
+
+        <div class="job-company-logo">
+            <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }}">
+        </div>
+
+        <div class="job-header-info">
+
+            <h1>{{ job.title }}</h1>
+
+            <h3>
+                <a href="{% url 'company-details' job.company.id %}">
+                    {{ job.company.name }}
+                </a>
+            </h3>
+
+            <p>
+                <i class="fas fa-map-marker-alt"></i>
+                {{ job.location }}
+            </p>
+
+            <p>
+                <i class="fas fa-briefcase"></i>
+                {{ job.get_job_type_display }}
+            </p>
+
+            <p>
+                <i class="fas fa-money-bill-wave"></i>
+                ${{ job.salary }}
+            </p>
+
+            <p>
+                <i class="fas fa-user-clock"></i>
+                {{ job.experience_years }} Years Experience
+            </p>
+
+            <p>
+                <i class="fas fa-calendar-times"></i>
+                Apply Before {{ job.deadline }}
+            </p>
+
+        </div>
+
+        <div class="job-actions">
+
+            {% if request.user == job.company.owner %}
+
+                <a href="{% url 'update-job' job.id %}" class="btn-edit">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </a>
+
+                <a href="{% url 'delete-job' job.id %}" class="btn-delete">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </a>
+
+                <a href="{% url 'job-applications' job.id %}" class="btn-primary">
+                    <i class="fas fa-users"></i>
+                    Applications
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'applie-job' job.id %}" class="btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                    Apply Now
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="job-section">
+
+        <h2>Job Description</h2>
+
+        <p>{{ job.description|linebreaks }}</p>
+
+    </div>
+
+    <div class="job-section">
+
+        <h2>Job Information</h2>
+
+        <div class="job-info-grid">
+
+            <div class="job-info-item">
+                <strong>Company</strong>
+                <span>{{ job.company.name }}</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Location</strong>
+                <span>{{ job.location }}</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Job Type</strong>
+                <span>{{ job.get_job_type_display }}</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Salary</strong>
+                <span>${{ job.salary }}</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Experience</strong>
+                <span>{{ job.experience_years }} Years</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Deadline</strong>
+                <span>{{ job.deadline }}</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Posted</strong>
+                <span>{{ job.created_at|timesince }} ago</span>
+            </div>
+
+        </div>
+
+    </div>
+
+{% if related_jobs %}
+
+<div class="job-section">
+
+    <h2>More Jobs From {{ job.company.name }}</h2>
+
+    {% for item in related_jobs %}
+
+        <div class="related-job">
+
+            <div>
+
+                <h3>{{ item.title }}</h3>
+
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{ item.location }}
+                </p>
+
+            </div>
+
+            <a href="{% url 'job-detail' item.id %}" class="btn-view">
+                View
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="messagings-container">
+
+    <div class="messagings-header">
+        <h2>Messages</h2>
+    </div>
+
+
+    <div class="conversation-list">
+
+        {% for conversation in conversations %}
+
+            <a 
+                href="{% url 'conversation' conversation.id %}" 
+                class="conversation-card"
+            >
+
+                <div class="conversation-avatar">
+                    {% for user in conversation.participants.all %}
+                        
+                        {% if user != request.user %}
+
+                            {% if user.profile.image %}
+                                <img 
+                                    src="{{ user.profile.image.url }}"
+                                    alt="{{ user.full_name }}"
+                                >
+                            {% endif %}
+
+                        {% endif %}
+
+                    {% endfor %}
+                </div>
+
+
+                <div class="conversation-info">
+
+                    {% for user in conversation.participants.all %}
+
+                        {% if user != request.user %}
+
+                            <h4>
+                                {{ user.full_name }}
+                            </h4>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    {% with last_message=conversation.messages.last %}
+
+                        {% if last_message %}
+
+                            <p>
+                                {{ last_message.content|truncatewords:8 }}
+                            </p>
+
+                            <small>
+                                {{ last_message.created_at|date:"M d, H:i" }}
+                            </small>
+
+                        {% else %}
+
+                            <p>
+                                No messages yet
+                            </p>
+
+                        {% endif %}
+
+                    {% endwith %}
+
+                </div>
+
+
+            </a>
+
+
+        {% empty %}
+
+            <div class="empty-conversations">
+
+                <p>
+                    You don't have any messages yet.
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

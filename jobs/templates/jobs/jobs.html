@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jobs-container">
+
+    <div class="jobs-header">
+        <h2>Jobs</h2>
+
+        <div class="header-actions">
+            <a href="{% url 'create-company' %}" class="btn-secondary">
+                Create Company
+            </a>
+
+            <a href="{% url 'create-new-job' %}" class="btn-primary">
+                Post Job
+            </a>
+        </div>
+    </div>
+    {% include 'messages.html' %}
+    {% for job in jobs %}
+    <div class="job-card">
+        <div class="job-logo">
+            <a href="{% url 'company-details' job.company.id %}">
+                <img width="60" height="60" src="{{job.company.logo.url}}" alt="{{job.title}}" />
+            </a>
+        </div>
+
+        <div class="job-info">
+            <h3>
+                <a style="color: #222;" href="{% url 'job' job.id %}">{{job.title}}</a>
+            </h3>
+            <h4>{{job.company.name}}</h4>
+
+            <div class="job-meta">
+                <span><i class="fas fa-map-marker-alt"></i> {{job.location}}</span>
+                <span><i class="fas fa-briefcase"></i> {{job.job_type}}</span>
+                <span><i class="fas fa-clock"></i> {{job.experience_years}}+ Years</span>
+            </div>
+
+            <p>{{job.description | slice:'200' }}</p>
+
+            <div class="job-footer">
+                <small>Posted {{job.created_at}} ago</small>
+
+                <a href="{% url 'applie-job' job.id %}" class="apply-btn">
+                    Apply Now
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
