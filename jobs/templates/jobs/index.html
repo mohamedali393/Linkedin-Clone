@@ -85,26 +85,19 @@
                 HTML & CSS
             </a>
             <h3>HASH TAGS</h3>
-            <a href="#">
+            <a href="{% url 'index' %}">All Posts</a>
+            {% for tag in tags %}
+            <a href="{% url 'posts-by-tag' tag.name %}">
                 <span>
                     #
                 </span>
-                pythonandjavascript
+                {{tag.name}}
             </a>
-            <a href="#">
-                <span>
-                    #
-                </span>
-                django
-            </a>
-            <a href="#">
-                <span>
-                    #
-                </span>
-                react
-            </a>
+            {% empty %}
+            <p>No Tags</p>
+            {% endfor %}
             <div class="descover-more-link">
-                <a href="#">Descover More</a>
+                <a href="{% url 'all-tags' %}">Descover More</a>
             </div>
         </div>
         <p id="sidebarToggleBtn">Show More +</p>

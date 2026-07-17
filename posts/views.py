@@ -21,6 +21,7 @@ class CreatePostView(LoginRequiredMixin,View):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
+            post.create_post_tags
             messages.success(request,'Post was created successfully')
             return redirect('index')
         
@@ -192,6 +193,7 @@ def share_post(request,pk):
                 shared_body=shared_body,
                 user=post.user
             )
+            share_post.create_post_tags
             messages.success(request,'Successfully Shared Post')
             return redirect('index')
         

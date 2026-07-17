@@ -3222,6 +3222,95 @@ hr {
     background: #004182;
 }
 
+.tags-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+
+.tags-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+
+.tags-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+
+.tag-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    text-decoration: none;
+    color: #333;
+    transition: 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.tag-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+
+.tag-icon {
+    font-size: 30px;
+    font-weight: bold;
+    color: #0a66c2;
+}
+
+
+.tag-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0a66c2;
+}
+
+
+.tag-count {
+    font-size: 14px;
+    color: #777;
+}
+
+
+.no-tags {
+    text-align: center;
+    color: #777;
+    font-size: 18px;
+}
+
+
+/* Responsive */
+@media (max-width: 600px) {
+
+    .tags-container {
+        padding: 15px;
+    }
+
+
+    .tags-title {
+        font-size: 24px;
+    }
+
+
+    .tags-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
 @media (max-width: 700px) {
 
 

@@ -3,7 +3,9 @@ from . import views
 
 
 urlpatterns = [
+    path('all-tags/',views.all_tags,name='all-tags'),
     path('',views.index,name='index'),
+    path('<str:tag_name>/',views.index,name='posts-by-tag'),
     path('jobs/',views.jobs_page,name='jobs'),
     path('create-company/',views.create_company,name='create-company'),
     path('my-companies/',views.my_companies,name='my-companies'),

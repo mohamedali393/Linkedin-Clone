@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="tags-container">
+
+    <h2 class="tags-title">
+        All Tags
+    </h2>
+
+
+    <div class="tags-grid">
+
+        {% for tag in tags %}
+
+            <a href="{% url 'posts-by-tag' tag.name %}" class="tag-card">
+
+                <span class="tag-icon">
+                    #
+                </span>
+
+                <span class="tag-name">
+                    {{ tag.name }}
+                </span>
+
+                <span class="tag-count">
+                    {{ tag.posts.count }} posts
+                </span>
+
+            </a>
+
+        {% empty %}
+
+            <p class="no-tags">
+                No Tags Available
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

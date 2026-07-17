@@ -6,7 +6,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = '__all__'
-        exclude = ['user','likes','shared_by','shared_post','shared_body','views']
+        exclude = ['user','likes','shared_by','shared_post','shared_body','views','tags']
         widgets = {
             'content': forms.Textarea(attrs={
                 'rows': 1,

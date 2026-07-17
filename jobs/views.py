@@ -5,7 +5,7 @@ from django.http import HttpResponseForbidden
 from .forms import CompanyForm, JobForm, JobApplicationForm
 from .models import Company, Job, JobApplication
 from posts.forms import PostForm
-from posts.models import Post
+from posts.models import Post, Tag
 from notifications.models import Notification
 from posts.forms import SharePostForm
 from django.db.models import Q
@@ -15,13 +15,22 @@ from django.db.models import Sum
 
 
 @login_required(login_url='login')
-def index(request):
+def index(request,tag_name=None):
     form = PostForm()
+    tags = Tag.objects.order_by('-created_at')[:5]
     share_form = SharePostForm()
+
     posts = Post.objects.filter(
         Q(user=request.user) |
-        Q(user__in=request.user.connections.all()) 
-    )
+        Q(user__in=request.user.connections.all())
+    ).distinct()
+
+    if tag_name:
+        posts = Post.objects.filter(
+            Q(user=request.user) |
+            Q(user__in=request.user.connections.all()),
+            tags__name=tag_name
+        )
     posts_views = Post.objects.filter(user=request.user).aggregate(total=Sum('views'))['total'] or 0
 
     context = {
@@ -29,6 +38,7 @@ def index(request):
         'posts': posts,
         'share_form': share_form,
         'posts_views': posts_views,
+        'tags': tags,
     }
     return render(request,'jobs/index.html',context)
 
@@ -332,3 +342,12 @@ def reject_job_application(request,pk):
     job_application.save()
     messages.success(request,'You Successfully rejected that job application')
     return redirect('job',pk=job_application.job.pk)
+
+@login_required(login_url='login')
+def all_tags(request):
+    tags = Tag.objects.all()
+
+    context = {
+        'tags': tags,
+    }
+    return render(request,'jobs/all-tags.html',context)

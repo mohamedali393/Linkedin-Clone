@@ -4,10 +4,19 @@ from django.urls import reverse
 
 # Create your models here.
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100,unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     user = models.ForeignKey(Account,on_delete=models.CASCADE)
     image = models.ImageField(upload_to='posts',null=True,blank=True)
     content = models.TextField()
+    tags = models.ManyToManyField(Tag,blank=True)
     shared_by = models.ForeignKey(Account,on_delete=models.CASCADE,related_name='shared_posts',null=True,blank=True)
     shared_post = models.ForeignKey(
         'self',
@@ -23,6 +32,22 @@ class Post(models.Model):
     views = models.PositiveIntegerField(
         default=0
     )
+
+    @property
+    def create_post_tags(self):
+        for word in self.content.split(' '):
+            if word.startswith('#'):
+                tag_word = word[1:]
+                tag, created = Tag.objects.get_or_create(name=tag_word)
+                self.tags.add(tag)
+        
+        for word in self.shared_body.split(' '):
+            if word.startswith('#'):
+                tag_word = word[1:]
+                tag, created = Tag.objects.get_or_create(name=tag_word)
+                self.tags.add(tag)
+
+        self.save()
     
     @property
     def get_url(self):
