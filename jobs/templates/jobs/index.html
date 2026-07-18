@@ -209,9 +209,17 @@
                         <span>
                             <i class="fas fa-comment"></i>
                         </span>
-                        <p>{{post.user.full_name}} and 75 others</p>
+                        <p>
+                            {% with likes=post.likes.all %}
+                                {% if likes.count == 1 %}
+                                    {{ likes.first.full_name }}
+                                {% elif likes.count > 1 %}
+                                    {{ likes.first.full_name }} and {{ likes.count|add:"-1" }} others
+                                {% endif %}
+                            {% endwith %}
+                        </p>
                     </div>
-                    <p>{{post.comments.count}} comments 40 shares</p>
+                    <p>{{post.comments.count}} comments {{post.shares.all.count}} shares</p>
                 </div>
                 <div class="post-activity-bottom">
                     <div class="post-activity-author">

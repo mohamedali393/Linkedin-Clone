@@ -193,7 +193,7 @@ def share_post(request,pk):
                 shared_body=shared_body,
                 user=post.user
             )
-            share_post.create_post_tags
+            shared_post.create_post_tags
             messages.success(request,'Successfully Shared Post')
             return redirect('index')
         
