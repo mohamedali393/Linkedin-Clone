@@ -7,6 +7,7 @@ from .models import Company, Job, JobApplication
 from posts.forms import PostForm
 from posts.models import Post, Tag
 from notifications.models import Notification
+from groups.models import Group
 from posts.forms import SharePostForm
 from django.db.models import Q
 from django.db.models import Sum
@@ -17,6 +18,7 @@ from django.db.models import Sum
 @login_required(login_url='login')
 def index(request,tag_name=None):
     form = PostForm()
+    groups = Group.objects.all()[:5]
     tags = Tag.objects.order_by('-created_at')[:5]
     share_form = SharePostForm()
 
@@ -39,6 +41,7 @@ def index(request,tag_name=None):
         'share_form': share_form,
         'posts_views': posts_views,
         'tags': tags,
+        'groups': groups,
     }
     return render(request,'jobs/index.html',context)
 

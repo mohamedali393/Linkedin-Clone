@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="group-detail-container">
+
+
+    <div class="group-cover">
+
+        <img 
+            src="{{ group.image.url }}" 
+            alt="{{ group.name }}"
+            class="group-detail-image"
+        >
+
+    </div>
+
+
+    <div class="group-detail-content">
+
+
+        <div class="group-header">
+
+            <div>
+
+                <h1>
+                    {{ group.name }}
+                </h1>
+
+
+                <p class="group-owner">
+                    Created by:
+                    <a href="{% url 'profile' group.owner.profile.id %}">
+                        {{ group.owner.full_name }}
+                    </a>
+                </p>
+
+            </div>
+
+
+            {% if request.user == group.owner %}
+
+                <a href="#" class="manage-btn">
+                    <i class="fa-solid fa-gear"></i>
+                    Manage Group
+                </a>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <p class="group-description">
+            {{ group.description }}
+        </p>
+
+
+
+        <div class="group-info">
+
+            <span>
+                <i class="fa-solid fa-users"></i>
+                {{ group.members_count }} Members
+            </span>
+
+
+            {% if group.is_private %}
+
+                <span>
+                    <i class="fa-solid fa-lock"></i>
+                    Private Group
+                </span>
+
+            {% else %}
+
+                <span>
+                    <i class="fa-solid fa-earth-americas"></i>
+                    Public Group
+                </span>
+
+            {% endif %}
+
+
+        </div>
+
+        {% include 'messages.html' %}
+
+        <div class="group-actions">
+
+
+            {% if request.user != group.owner %}
+
+                {% if request.user in group.members.all %}
+
+                    <form method="POST" action="{% url 'leave-group' group.id %}">
+                        {% csrf_token %}
+
+                        <button class="leave-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Leave Group
+                        </button>
+
+                    </form>
+
+
+                {% endif %}
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+    {% if request.user == group.owner %}
+
+        <div class="join-requests">
+
+            <h3>
+                Join Requests
+            </h3>
+
+            {% for request in group.join_requests.all %}
+
+                <div class="request-item">
+
+                    <p>
+                        {{ request.user.full_name }}
+                    </p>
+
+                    <a href="{% url 'accept-group-request' request.id %}">
+                        Accept
+                    </a>
+
+                    <a href="{% url 'reject-group-request' request.id %}">
+                        Reject
+                    </a>
+
+                </div>
+
+            {% empty %}
+
+                <p>No pending requests</p>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+    <div class="group-posts-section">
+
+        <h2>
+            Group Posts
+        </h2>
+        {% if request.user in group.members.all or request.user == group.owner %}
+
+<div class="create-group-post">
+
+    <h3>
+        Create Post
+    </h3>
+
+
+    <form method="POST" 
+          enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+
+            {{form.content}}
+
+
+            <div class="post-actions">
+
+
+                <label class="image-upload">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    Add Image
+
+                    {{form.image}}
+
+                </label>
+
+
+                <button type="submit" class="post-btn">
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Post
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+    {% endif %}
+
+        <!-- Group Posts -->
+
+<div class="group-posts-section">
+
+    <h2>
+        Group Posts
+    </h2>
+
+
+    {% for post in group.posts.all %}
+
+        <div class="group-post-card">
+
+
+            <!-- User -->
+
+            <div class="post-header">
+
+                <img 
+                    src="{{ post.user.profile.photo.url }}"
+                    alt="{{ post.user.full_name }}"
+                    class="post-avatar"
+                >
+
+
+                <div>
+
+                    <a href="{% url 'profile' post.user.profile.id %}">
+                        {{ post.user.full_name }}
+                    </a>
+
+                    <small>
+                        {{ post.created_at|timesince }} ago
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Content -->
+
+            <div class="post-content">
+
+                {{ post.content|linebreaks }}
+
+            </div>
+
+
+
+            <!-- Image -->
+
+            {% if post.image %}
+
+            <div class="post-image">
+
+                <img 
+                    src="{{ post.image.url }}"
+                    alt="Post image"
+                >
+
+            </div>
+
+            {% endif %}
+
+
+
+            <!-- Likes -->
+
+            <div class="post-footer">
+
+                <a href="{% url 'like-post-group' post.id %}">
+                    <i class="fa-solid fa-thumbs-up"></i>
+
+                    {{ post.likes_count }}
+
+                    Likes
+                </a>
+
+
+                <a href="{% url 'group-post-detail' post.id %}">
+                    <i class="fa-solid fa-comment"></i>
+
+                    Comments
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        {% empty %}
+
+        <p class="empty-posts">
+            No posts in this group yet.
+        </p>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

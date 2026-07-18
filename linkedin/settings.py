@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'contact.apps.ContactConfig',
     'notifications.apps.NotificationsConfig',
+    'groups.apps.GroupsConfig',
 ]
 
 AUTH_USER_MODEL = 'accounts.Account'

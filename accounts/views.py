@@ -104,6 +104,7 @@ def user_account(request):
     skills = Skill.objects.filter(userskill__user__profile=profile)
     educations = Education.objects.filter(user=profile.user)
     experiences = Experience.objects.filter(user=profile.user)
+    experiences_count = experiences.count()
     languages = Language.objects.filter(userlanguage__user=profile.user)
     profiles = Profile.objects.order_by('-created_at')[:5]
     for p in profiles:
@@ -113,7 +114,8 @@ def user_account(request):
         'profile': profile,
         'skills': skills,
         'educations': educations,
-        'experiences': experiences,
+        'experiences': experiences[:5],
+        'experiences_count': experiences_count,
         'languages': languages,
         'profiles': profiles,
     }
@@ -348,3 +350,14 @@ def delete_connection(request,pk):
             return redirect('profile',pk=user1.profile.id)
     
     return redirect('index')
+
+
+@login_required(login_url='login')
+def experiences_page(request,pk):
+    profile = get_object_or_404(Profile,pk=pk)
+    experiences = Experience.objects.filter(user=profile.user)
+
+    context = {
+        'experiences': experiences,
+    }
+    return render(request,'accounts/experiences.html',context)

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="groups-container">
+
+    <div class="groups-header">
+
+        <h2>
+            <i class="fa-solid fa-users"></i>
+            Groups
+        </h2>
+
+        <a href="{% url 'create-group' %}" class="create-group-btn">
+            <i class="fa-solid fa-plus"></i>
+            Create Group
+        </a>
+
+    </div>
+    {% include 'messages.html' %}
+
+    <div class="groups-grid">
+
+        {% for group in groups %}
+
+        <div class="group-card">
+
+            <img 
+                src="{{ group.image.url }}" 
+                alt="{{ group.name }}"
+                class="group-image"
+            >
+
+
+            <div class="group-info">
+
+                <a href="{% url 'group-detail' group.id %}" class="group-name">
+                    {{ group.name }}
+                </a>
+
+
+                <p class="group-description">
+                    {{ group.description|truncatewords:15 }}
+                </p>
+
+
+                <div class="group-members">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    {{ group.members_count }} Members
+
+                </div>
+
+                {% if request.user == group.owner %}
+
+                    <button class="joined-btn" disabled>
+                        <i class="fa-solid fa-crown"></i>
+                        Owner
+                    </button>
+
+                {% elif request.user in group.members.all %}
+
+                <form  method="POST" action="{% url 'leave-group' group.id %}">
+                    {% csrf_token %}
+                    <button style="cursor: pointer;" class="joined-btn" type="submit">
+                        <i class="fa-solid fa-check"></i>
+                        Leave Group
+                    </button>
+                </form>
+                {% else %}
+                {% if group.is_private %}
+
+                    <a href="{% url 'join-group' group.id %}" class="join-btn">
+                        Request Join
+                    </a>
+
+                {% else %}
+
+                    <a href="{% url 'join-group' group.id %}" class="join-btn">
+                        Join
+                    </a>
+
+                {% endif %}
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="empty-groups">
+
+            <i class="fa-solid fa-users-slash"></i>
+
+            <p>
+                No groups available
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+{% endblock %}

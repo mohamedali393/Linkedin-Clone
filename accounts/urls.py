@@ -18,4 +18,5 @@ urlpatterns = [
     path('accept-connection/<str:pk>/',views.accept_user_connection,name='accept-connection'),
     path('reject-connection/<str:pk>/',views.reject_user_connection,name='reject-connection'),
     path('remove-user-connection/<str:pk>/',views.delete_connection,name='remove-connection'),
+    path('experiences/<str:pk>/',views.experiences_page,name='experiences'),
 ]

@@ -35,55 +35,35 @@
         </div>
         <div class="recent-activities">
             <h3>RECENT</h3>
-            <a href="#">
+            {% for group in request.user.joined_groups.all|slice:":5" %}
+            <a href="{% url 'group-detail' group.id %}">
                 <span>
                     <i class="fas fa-clock-rotate-left"></i>
                 </span>
-                Web developement
+                {{ group.name }}
             </a>
-            <a href="#">
-                <span>
-                    <i class="fas fa-clock-rotate-left"></i>
-                </span>
-                User Interface
-            </a>
-            <a href="#">
-                <span>
-                    <i class="fas fa-clock-rotate-left"></i>
-                </span>
-                Online Learning
-            </a>
-            <a href="#">
-                <span>
-                    <i class="fas fa-clock-rotate-left"></i>
-                </span>
-                Learn Online
-            </a>
-            <a href="#">
-                <span>
-                    <i class="fas fa-clock-rotate-left"></i>
-                </span>
-                Code Practice
-            </a>
+            {% empty %}
+            <p>No recent activity</p>
+            {% endfor %}
             <h3>Groups</h3>
-            <a href="#">
+            {% for group in groups %}
+            <a href="{% url 'group-detail' group.id %}">
                 <span>
                     <i class="fas fa-users"></i>
                 </span>
-                Python & JavaScript
+                {{group.name}}
             </a>
-            <a href="#">
-                <span>
-                    <i class="fas fa-users"></i>
-                </span>
-                Web Development
-            </a>
-            <a href="#">
-                <span>
-                    <i class="fas fa-users"></i>
-                </span>
-                HTML & CSS
-            </a>
+            {% empty %}
+            <p>No, Groups</p>
+            {% endfor %}
+            <div class="descover-more-link">
+                <a href="{% url 'groups' %}">
+                    <span>
+                        <i class="fas fa-arrow-left"></i>
+                    </span>
+                    Show all
+                </a>
+            </div>
             <h3>HASH TAGS</h3>
             <a href="{% url 'index' %}">All Posts</a>
             {% for tag in tags %}

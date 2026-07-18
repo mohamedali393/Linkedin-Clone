@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="group-post-detail-container">
+    {% include 'messages.html' %}
+    <div class="group-post-card">
+
+        <div class="post-header">
+
+            <img src="{{ post.user.profile.photo.url }}" alt="{{ post.user.full_name }}" class="post-avatar">
+
+            <div>
+
+                <a href="{% url 'profile' post.user.profile.id %}">
+                    {{ post.user.full_name }}
+                </a>
+
+                <small>
+                    {{ post.created_at|timesince }} ago
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="post-content">
+
+            {{ post.content|linebreaks }}
+
+        </div>
+
+
+        {% if post.image %}
+
+        <div class="post-image">
+
+            <img src="{{ post.image.url }}" alt="Post Image">
+
+        </div>
+
+        {% endif %}
+
+
+        <div class="post-stats">
+
+            <span>
+                <i class="fa-solid fa-thumbs-up"></i>
+                {{ post.likes_count }} Likes
+            </span>
+
+            <span>
+                <i class="fa-solid fa-comments"></i>
+                {{ comments.count }} Comments
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Comment Form -->
+
+    <div class="comment-form-card">
+
+        <h3>Add Comment</h3>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.content }}
+
+            <button type="submit">
+                <i class="fa-solid fa-paper-plane"></i>
+                Comment
+            </button>
+
+        </form>
+
+    </div>
+
+
+
+    <!-- Comments -->
+
+    <div class="comments-card">
+
+        <h3>Comments</h3>
+
+        {% for comment in comments %}
+
+        <div class="comment-item">
+
+            <div class="comment-header">
+
+                <img src="{{ comment.user.profile.photo.url }}"
+                     class="comment-avatar">
+
+                <div>
+
+                    <a href="{% url 'profile' comment.user.profile.id %}">
+                        {{ comment.user.full_name }}
+                    </a>
+
+                    <small>
+                        {{ comment.created_at|timesince }} ago
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="comment-content">
+
+                {{ comment.content|linebreaks }}
+
+            </div>
+
+
+            <!-- Replies -->
+
+            {% for reply in comment.children %}
+
+            <div class="reply-item">
+
+                <div class="comment-header">
+
+                    <img src="{{ reply.user.profile.photo.url }}"
+                         class="comment-avatar">
+
+                    <div>
+
+                        <a href="{% url 'profile' reply.user.profile.id %}">
+                            {{ reply.user.full_name }}
+                        </a>
+
+                        <small>
+                            {{ reply.created_at|timesince }} ago
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="comment-content">
+
+                    {{ reply.content|linebreaks }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% empty %}
+
+        <p class="empty-comments">
+            No comments yet.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

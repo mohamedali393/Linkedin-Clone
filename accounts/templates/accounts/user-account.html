@@ -122,7 +122,7 @@
             <p>No Experience</p>
             {% endfor %}
             <hr>
-            <a class="experient-link" href="#">Show all 7 Experiences <i class="fas fa-arrow-right"></i></a>
+            <a class="experient-link" href="{% url 'experiences' profile.id %}">Show all {{experiences_count}} Experiences <i class="fas fa-arrow-right"></i></a>
         </div>
         <div class="profile-description">
             <div class="flex-row">

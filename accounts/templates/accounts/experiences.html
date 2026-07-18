@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="experiences-page">
+
+    <div class="experiences-card">
+
+        <div class="page-header">
+
+            <h2>
+                Experience
+            </h2>
+
+        </div>
+
+
+        {% for experience in experiences %}
+
+        <div class="experience-item">
+
+
+            <div class="experience-icon">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+            </div>
+
+
+            <div class="experience-content">
+
+
+                <h3>
+                    {{ experience.position }}
+                </h3>
+
+
+                <p class="company-name">
+
+                    {{ experience.company_name }}
+
+                </p>
+
+
+                {% if experience.location %}
+
+                <p class="location">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    {{ experience.location }}
+
+                </p>
+
+                {% endif %}
+
+
+
+                <p class="period">
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    {{ experience.start_date|date:"M Y" }}
+
+                    -
+
+                    {% if experience.currently_working %}
+
+                        Present
+
+                    {% else %}
+
+                        {{ experience.end_date|date:"M Y" }}
+
+                    {% endif %}
+
+                </p>
+
+
+
+                {% if experience.description %}
+
+                <p class="description">
+
+                    {{ experience.description|linebreaks }}
+
+                </p>
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+
+        {% empty %}
+
+        <div class="empty-experiences">
+
+            <i class="fa-solid fa-briefcase"></i>
+
+            <p>
+                No experiences added yet.
+            </p>
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+</div>
+
+
+{% endblock %}

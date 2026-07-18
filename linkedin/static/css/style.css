@@ -3291,6 +3291,1476 @@ hr {
     font-size: 18px;
 }
 
+.groups-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+
+/* Header */
+
+.groups-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+
+.groups-header h2 {
+    font-size: 28px;
+    color: #333;
+}
+
+
+.groups-header h2 i {
+    color: #0a66c2;
+}
+
+
+/* Create button */
+
+.create-group-btn {
+    background: #0a66c2;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .3s;
+}
+
+
+.create-group-btn:hover {
+    background: #004182;
+}
+
+
+/* Groups grid */
+
+.groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+
+/* Card */
+
+.group-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    transition: .3s;
+}
+
+
+.group-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.1);
+}
+
+
+/* Image */
+
+.group-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+
+/* Info */
+
+.group-info {
+    padding: 20px;
+}
+
+
+.group-name {
+    font-size: 21px;
+    font-weight: 700;
+    color: #0a66c2;
+    text-decoration: none;
+}
+
+
+.group-name:hover {
+    text-decoration: underline;
+}
+
+
+.group-description {
+    color: #666;
+    margin: 15px 0;
+    line-height: 1.5;
+}
+
+
+/* Members */
+
+.group-members {
+    color: #777;
+    margin-bottom: 15px;
+}
+
+
+.group-members i {
+    color: #0a66c2;
+}
+
+
+/* Buttons */
+
+.join-btn,
+.joined-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+}
+
+
+.join-btn {
+    background: #0a66c2;
+    color: white;
+}
+
+
+.join-btn:hover {
+    background: #004182;
+}
+
+
+.joined-btn {
+    background: #e8f3ff;
+    color: #0a66c2;
+    cursor: default;
+}
+
+
+/* Empty */
+
+.empty-groups {
+    text-align: center;
+    padding: 50px;
+    color: #777;
+}
+
+
+.empty-groups i {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.group-detail-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+
+/* Group image */
+
+.group-cover {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    border-radius: 15px 15px 0 0;
+}
+
+
+.group-detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Main content */
+
+.group-detail-content {
+    background: white;
+    padding: 30px;
+    border-radius: 0 0 15px 15px;
+    border: 1px solid #ddd;
+}
+
+
+/* Header */
+
+.group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.group-header h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
+.group-owner {
+    color: #666;
+}
+
+
+.group-owner a {
+    color: #0a66c2;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+.group-owner a:hover {
+    text-decoration: underline;
+}
+
+
+/* Manage button */
+
+.manage-btn {
+    background: #0a66c2;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+.manage-btn:hover {
+    background: #004182;
+}
+
+
+/* Description */
+
+.group-description {
+    margin: 25px 0;
+    line-height: 1.7;
+    color: #444;
+    font-size: 17px;
+}
+
+
+/* Info */
+
+.group-info {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+
+.group-info span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.group-info i {
+    color: #0a66c2;
+}
+
+
+/* Actions */
+
+.group-actions {
+    margin-top: 20px;
+}
+
+
+.leave-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+.leave-btn:hover {
+    background: #b02a37;
+}
+
+
+/* Posts section */
+
+.group-posts-section {
+    background: white;
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+}
+
+
+.group-posts-section h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+.empty-posts {
+    text-align: center;
+    color: #777;
+    padding: 30px;
+}
+
+/* Join Requests Section */
+
+.join-requests {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 25px 0;
+}
+
+
+.join-requests h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+/* Request item */
+
+.request-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    gap: 15px;
+}
+
+
+.request-item:last-child {
+    border-bottom: none;
+}
+
+
+.request-item p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+
+/* Buttons container if you add one */
+
+.request-actions {
+    display: flex;
+    gap: 10px;
+}
+
+
+/* Accept button */
+
+.accept-request-btn {
+    background: #0a66c2;
+    color: white;
+    padding: 9px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    transition: .3s;
+}
+
+
+.accept-request-btn:hover {
+    background: #004182;
+}
+
+
+/* Reject button */
+
+.reject-request-btn {
+    background: #dc3545;
+    color: white;
+    padding: 9px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    transition: .3s;
+}
+
+
+.reject-request-btn:hover {
+    background: #b02a37;
+}
+
+
+/* Empty requests */
+
+.join-requests p {
+    color: #777;
+}
+
+
+/* Create Group Post */
+
+.create-group-post {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 25px 0;
+}
+
+
+.create-group-post h3 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+}
+
+
+/* Text area */
+
+.create-group-post textarea {
+    width: 100%;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 16px;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: .3s;
+}
+
+
+.create-group-post textarea:focus {
+    border-color: #0a66c2;
+    box-shadow: 0 0 5px rgba(10,102,194,.2);
+}
+
+
+/* Actions */
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+
+/* Image upload */
+
+.image-upload {
+    cursor: pointer;
+    color: #0a66c2;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.image-upload:hover {
+    color: #004182;
+}
+
+
+.image-upload input {
+    display: none;
+}
+
+
+/* Post button */
+
+.post-btn {
+    background: #0a66c2;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: .3s;
+}
+
+
+.post-btn:hover {
+    background: #004182;
+}
+
+
+/* Group Posts Section */
+
+.group-posts-section {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 25px;
+}
+
+
+.group-posts-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+/* Post Card */
+
+.group-post-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #fff;
+}
+
+
+/* Post Header */
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+
+.post-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.post-header a {
+    color: #333;
+    font-weight: 700;
+    text-decoration: none;
+    display: block;
+}
+
+
+.post-header a:hover {
+    color: #0a66c2;
+}
+
+
+.post-header small {
+    color: #777;
+    font-size: 13px;
+}
+
+
+/* Content */
+
+.post-content {
+    color: #333;
+    line-height: 1.6;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+
+/* Image */
+
+.post-image {
+    width: 100%;
+    margin-top: 15px;
+}
+
+
+.post-image img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+/* Footer */
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+
+.post-footer span,
+.post-footer a {
+    color: #666;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+.post-footer i {
+    color: #0a66c2;
+}
+
+
+.post-footer a:hover {
+    color: #0a66c2;
+}
+
+
+/* Empty posts */
+
+.empty-posts {
+    text-align: center;
+    color: #777;
+    padding: 30px;
+}
+
+
+/* ===========================
+   Group Post Detail
+=========================== */
+
+.group-post-detail-container{
+    max-width: 850px;
+    margin: 40px auto;
+}
+
+
+/* Post */
+
+.group-post-card{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+
+/* Header */
+
+.post-header{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+
+.post-avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.post-header a{
+    text-decoration: none;
+    color: #222;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+
+.post-header a:hover{
+    color: #0a66c2;
+}
+
+
+.post-header small{
+    display: block;
+    color: #777;
+    margin-top: 4px;
+}
+
+
+/* Content */
+
+.post-content{
+    font-size: 16px;
+    color: #333;
+    line-height: 1.7;
+}
+
+
+/* Image */
+
+.post-image{
+    margin-top: 20px;
+}
+
+
+.post-image img{
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+/* Stats */
+
+.post-stats{
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 30px;
+    color: #666;
+}
+
+
+.post-stats i{
+    color: #0a66c2;
+}
+
+
+/* ===========================
+   Comment Form
+=========================== */
+
+.comment-form{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+
+.comment-form h3{
+    margin-bottom: 15px;
+}
+
+
+.comment-form textarea{
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 15px;
+    outline: none;
+    font-family: inherit;
+}
+
+
+.comment-form textarea:focus{
+    border-color: #0a66c2;
+}
+
+
+.comment-form button{
+    margin-top: 15px;
+    background: #0a66c2;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .3s;
+}
+
+
+.comment-form button:hover{
+    background: #004182;
+}
+
+
+/* ===========================
+   Comments
+=========================== */
+
+.comments-section{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+
+.comments-section h3{
+    margin-bottom: 20px;
+}
+
+
+.comment-card{
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+}
+
+
+.comment-card:last-child{
+    border-bottom: none;
+}
+
+
+.comment-header{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.comment-avatar{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.comment-header a{
+    text-decoration: none;
+    color: #222;
+    font-weight: 600;
+}
+
+
+.comment-header a:hover{
+    color: #0a66c2;
+}
+
+
+.comment-header small{
+    display: block;
+    color: #777;
+    margin-top: 3px;
+}
+
+
+.comment-content{
+    margin-left: 54px;
+    margin-top: 10px;
+    color: #444;
+    line-height: 1.6;
+}
+
+
+.empty-comments{
+    text-align: center;
+    color: #777;
+    padding: 30px;
+}
+
+/* ===================================
+   Group Post Detail
+=================================== */
+
+.group-post-detail-container{
+    max-width: 850px;
+    margin: 40px auto;
+}
+
+
+/* ===================================
+   Post Card
+=================================== */
+
+.group-post-card{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+
+/* ===================================
+   Post Header
+=================================== */
+
+.post-header{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.post-avatar{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-header a{
+    text-decoration: none;
+    color: #222;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.post-header a:hover{
+    color: #0a66c2;
+}
+
+.post-header small{
+    display: block;
+    margin-top: 5px;
+    color: #777;
+}
+
+
+/* ===================================
+   Post Content
+=================================== */
+
+.post-content{
+    font-size: 16px;
+    color: #333;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+
+/* ===================================
+   Post Image
+=================================== */
+
+.post-image img{
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+}
+
+
+/* ===================================
+   Post Stats
+=================================== */
+
+.post-stats{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+    padding-top: 15px;
+}
+
+.post-stats span{
+    color: #666;
+    font-weight: 600;
+}
+
+.post-stats i{
+    color: #0a66c2;
+    margin-right: 5px;
+}
+
+
+/* ===================================
+   Comment Form
+=================================== */
+
+.comment-form-card{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.comment-form-card h3{
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.comment-form-card form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comment-form-card textarea{
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 15px;
+    outline: none;
+    transition: .3s;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.comment-form-card textarea:focus{
+    border-color: #0a66c2;
+    box-shadow: 0 0 5px rgba(10,102,194,.2);
+}
+
+.comment-form-card button{
+    align-self: flex-end;
+    background: #0a66c2;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 22px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.comment-form-card button:hover{
+    background: #004182;
+}
+
+
+/* ===================================
+   Comments
+=================================== */
+
+.comments-card{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.comments-card h3{
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+/* ===================================
+   Single Comment
+=================================== */
+
+.comment-item{
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.comment-item:last-child{
+    border-bottom: none;
+}
+
+
+/* ===================================
+   Comment Header
+=================================== */
+
+.comment-header{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.comment-avatar{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.comment-header a{
+    color: #222;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.comment-header a:hover{
+    color: #0a66c2;
+}
+
+.comment-header small{
+    display: block;
+    margin-top: 4px;
+    color: #777;
+}
+
+
+/* ===================================
+   Comment Content
+=================================== */
+
+.comment-content{
+    margin-left: 57px;
+    margin-top: 10px;
+    color: #444;
+    line-height: 1.6;
+}
+
+
+/* ===================================
+   Replies
+=================================== */
+
+.reply-item{
+    margin-left: 60px;
+    margin-top: 20px;
+    padding-left: 20px;
+    border-left: 3px solid #0a66c2;
+}
+
+
+/* ===================================
+   Empty Comments
+=================================== */
+
+.empty-comments{
+    text-align: center;
+    color: #777;
+    padding: 35px;
+}
+
+/* =========================
+   Experiences Page
+========================= */
+
+.experiences-page {
+    max-width: 850px;
+    margin: 40px auto;
+}
+
+
+/* Card */
+
+.experiences-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+
+/* Header */
+
+.page-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+
+.page-header h2 {
+    margin: 0;
+    font-size: 26px;
+    color: #333;
+}
+
+
+/* Experience Item */
+
+.experience-item {
+    display: flex;
+    gap: 20px;
+    padding: 25px 0;
+    border-bottom: 1px solid #eee;
+}
+
+
+.experience-item:last-child {
+    border-bottom: none;
+}
+
+
+/* Icon */
+
+.experience-icon {
+    width: 50px;
+    height: 50px;
+    background: #e8f3ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+
+.experience-icon i {
+    color: #0a66c2;
+    font-size: 22px;
+}
+
+
+/* Content */
+
+.experience-content h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    color: #222;
+}
+
+
+.company-name {
+    font-weight: 600;
+    color: #555;
+    margin: 5px 0;
+}
+
+
+.location,
+.period {
+    color: #777;
+    font-size: 14px;
+    margin: 8px 0;
+}
+
+
+.location i,
+.period i {
+    color: #0a66c2;
+    margin-right: 6px;
+}
+
+
+/* Description */
+
+.description {
+    margin-top: 15px;
+    color: #444;
+    line-height: 1.7;
+}
+
+
+/* Empty */
+
+.empty-experiences {
+    text-align: center;
+    padding: 50px 20px;
+    color: #777;
+}
+
+
+.empty-experiences i {
+    font-size: 45px;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+
+/* Responsive */
+
+@media(max-width:700px) {
+
+    .experiences-page {
+        margin: 20px 10px;
+    }
+
+
+    .experiences-card {
+        padding: 20px;
+    }
+
+
+    .experience-item {
+        gap: 15px;
+    }
+
+
+    .experience-content h3 {
+        font-size: 18px;
+    }
+
+}
+
+
+/* ===================================
+   Responsive
+=================================== */
+
+@media(max-width:768px){
+
+    .group-post-detail-container{
+        margin: 20px 10px;
+    }
+
+    .post-header,
+    .comment-header{
+        align-items: flex-start;
+    }
+
+    .post-stats{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .comment-content{
+        margin-left: 0;
+    }
+
+    .reply-item{
+        margin-left: 20px;
+        padding-left: 15px;
+    }
+
+    .comment-form-card button{
+        width: 100%;
+    }
+
+}
+
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width:768px){
+
+    .group-post-detail-container{
+        margin: 20px 10px;
+    }
+
+    .post-stats{
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .comment-content{
+        margin-left: 0;
+        margin-top: 15px;
+    }
+
+}
+
+
+/* Mobile */
+
+@media(max-width:700px) {
+
+    .group-posts-section {
+        padding: 15px;
+    }
+
+
+    .group-post-card {
+        padding: 15px;
+    }
+
+
+    .post-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+}
+
+
+/* Mobile */
+
+@media(max-width:700px) {
+
+    .post-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+
+    .post-btn {
+        justify-content: center;
+    }
+
+}
+
+/* Mobile */
+
+@media(max-width:700px) {
+
+    .request-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .request-actions {
+        width: 100%;
+    }
+
+
+    .accept-request-btn,
+    .reject-request-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+}
+
+
+/* Responsive */
+
+@media(max-width:700px) {
+
+    .group-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .group-header h1 {
+        font-size: 25px;
+    }
+
+
+    .group-cover {
+        height: 200px;
+    }
+
+
+    .group-detail-content {
+        padding: 20px;
+    }
+
+}
+
+
+/* Mobile */
+
+@media(max-width:700px) {
+
+    .groups-header {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+
+    .create-group-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+
+    .groups-container {
+        padding: 15px;
+    }
+
+}
+
 
 /* Responsive */
 @media (max-width: 600px) {
