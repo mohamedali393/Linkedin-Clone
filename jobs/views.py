@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseForbidden
 from .forms import CompanyForm, JobForm, JobApplicationForm
-from .models import Company, Job, JobApplication
+from .models import Company, Job, JobApplication, Favourite
 from posts.forms import PostForm
 from posts.models import Post, Tag
 from notifications.models import Notification
@@ -49,6 +49,8 @@ def index(request,tag_name=None):
 @login_required(login_url='login')
 def jobs_page(request):
     jobs = Job.objects.all()
+    for job in jobs:
+        job.isFavourite = Favourite.objects.filter(job=job,user=request.user)
 
     context = {
         'jobs': jobs,
@@ -354,3 +356,54 @@ def all_tags(request):
         'tags': tags,
     }
     return render(request,'jobs/all-tags.html',context)
+
+
+
+@login_required(login_url='login')
+def add_favourite(request,pk):
+    job = get_object_or_404(Job,pk=pk)
+
+    if Favourite.objects.filter(job=job,user=request.user).exists():
+        messages.error(request,'Item is already added to favourite')
+        return redirect('jobs')
+    
+    Favourite.objects.create(
+        job=job,
+        user=request.user
+    )
+    messages.success(request,'Job was added to favourite successfully')
+    return redirect('jobs')
+
+
+
+@login_required(login_url='login')
+def remove_favourite(request,pk):
+    job = get_object_or_404(Job,pk=pk)
+
+    if not Favourite.objects.filter(job=job,user=request.user).exists():
+        messages.error(request,'Item was not found in favourite')
+        return redirect('jobs')
+    
+    favourite = Favourite.objects.filter(job=job,user=request.user).first()
+    favourite.delete()
+    messages.success(request,'Job was Removed from favourite successfully')
+    return redirect('jobs')
+
+
+
+
+@login_required(login_url='login')
+def my_favourite_job(request):
+    favourites = Favourite.objects.filter(user=request.user)
+    ids = []
+    for favourite in favourites:
+        ids.append(favourite.job.id)
+
+    jobs = Job.objects.filter(id__in=ids)
+    for job in jobs:
+        job.isFavourite = Favourite.objects.filter(job=job,user=request.user)
+
+    context = {
+        'jobs': jobs,
+    }
+    return render(request,'jobs/favourite-jobs.html',context)

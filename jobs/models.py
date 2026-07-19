@@ -63,6 +63,18 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Favourite(models.Model):
+    user = models.ForeignKey(Account,on_delete=models.CASCADE)
+    job = models.ForeignKey(Job,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = [['user','job']]
+
+    def __str__(self):
+        return f'{self.user.full_name} - {self.job.title}'
     
 
 def validate_file_size(file):

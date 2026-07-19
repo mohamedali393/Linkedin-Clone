@@ -22,4 +22,7 @@ urlpatterns = [
     path('delete-job/<str:pk>/',views.delete_job,name='delete-job'),
     path('accept-job-application/<str:pk>/',views.accept_job_application,name='accept-job-application'),
     path('reject-job-application/<str:pk>/',views.reject_job_application,name='reject-job-application'),
+    path('add-favourite/<str:pk>/',views.add_favourite,name='add-favourite'),
+    path('remove-favourite/<str:pk>/',views.remove_favourite,name='remove-favourite'),
+    path('favourite-jobs/',views.my_favourite_job,name='favourite-jobs'),
 ]
