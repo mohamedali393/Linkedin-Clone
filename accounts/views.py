@@ -100,13 +100,24 @@ def logoutUser(request):
 
 @login_required(login_url='login')
 def user_account(request):
+    pending_ids = ConnectionRequest.objects.filter(
+        Q(sender=request.user) | Q(reciver=request.user)
+    ).values_list('sender_id', 'reciver_id')
+
+    excluded = {request.user.id}
+
+    excluded.update(request.user.connections.values_list('id', flat=True))
+
+    for sender_id, receiver_id in pending_ids:
+        excluded.add(sender_id)
+        excluded.add(receiver_id)
     profile = request.user.profile
     skills = Skill.objects.filter(userskill__user__profile=profile)
     educations = Education.objects.filter(user=profile.user)
     experiences = Experience.objects.filter(user=profile.user)
     experiences_count = experiences.count()
     languages = Language.objects.filter(userlanguage__user=profile.user)
-    profiles = Profile.objects.order_by('-created_at')[:5]
+    profiles = Profile.objects.exclude(user_id__in=excluded).order_by('-created_at')[:5]
     for p in profiles:
         p.is_connected = p.user.is_connected(request.user)
         p.has_connection_request = has_connection_request(request.user,p.user)
@@ -235,13 +246,24 @@ def profile_details(request,pk):
     profile = get_object_or_404(Profile,pk=pk)
     profile.views += 1
     profile.save()
+    pending_ids = ConnectionRequest.objects.filter(
+        Q(sender=request.user) | Q(reciver=request.user)
+    ).values_list('sender_id', 'reciver_id')
+
+    excluded = {request.user.id}
+
+    excluded.update(request.user.connections.values_list('id', flat=True))
+
+    for sender_id, receiver_id in pending_ids:
+        excluded.add(sender_id)
+        excluded.add(receiver_id)
     skills = Skill.objects.filter(userskill__user__profile=profile)
     educations = Education.objects.filter(user=profile.user)
     experiences = Experience.objects.filter(user=profile.user)
     languages = Language.objects.filter(userlanguage__user=profile.user)
     profile.is_connected = profile.user.is_connected(request.user)
     profile.has_connection_request = has_connection_request(profile.user,request.user)
-    profiles = Profile.objects.order_by('-created_at')[:5]
+    profiles = Profile.objects.exclude(user__id__in=excluded).order_by('-created_at')[:5]
     for p in profiles:
         p.is_connected = p.user.is_connected(request.user)
         p.has_connection_request = has_connection_request(request.user,p.user)
