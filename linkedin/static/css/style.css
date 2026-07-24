@@ -5120,6 +5120,10 @@ hr {
 /* --------------------Media Screen ------------------ */
 
 @media only screen and (max-width: 37.5em) {
+    .form-card {
+        width: calc(100% - 2rem);
+        margin-inline: auto;
+    }
     .nav {
         width: 100% !important;
         flex-wrap: wrap;
